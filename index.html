@@ -1,107 +1,813 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP - contesta.la</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f4f4f5;
-            color: #18181b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            max-width: 600px;
-            width: 100%;
-            padding: 40px 30px;
-            text-align: center;
-        }
-        h1 {
-            margin-top: 0;
-            color: #27272a;
-            font-size: 24px;
-            margin-bottom: 30px;
-            letter-spacing: -0.5px;
-        }
-        .vip-badge {
-            display: inline-block;
-            background-color: #000;
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-        }
-        .message-block {
-            text-align: left;
-            background-color: #fafafa;
-            border-left: 4px solid #3b82f6;
-            padding: 16px 20px;
-            margin-bottom: 20px;
-            border-radius: 0 8px 8px 0;
-        }
-        .message-block:last-child {
-            margin-bottom: 0;
-        }
-        .lang-label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: #71717a;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-        p {
-            margin: 0;
-            line-height: 1.5;
-            font-size: 15px;
-        }
-        a {
-            color: #3b82f6;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>contesta.la — Canal privado de soporte HardToCrack</title>
+  <meta name="description" content="Contesta.la es el canal privado de soporte de HardToCrack. Utiliza tu dirección personalizada para gestionar consultas, incidencias y asistencia de forma organizada.">
+  <meta name="theme-color" content="#05080d">
+  <meta name="robots" content="index,follow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="contesta.la — Tu canal privado de soporte">
+  <meta property="og:description" content="Una dirección personalizada para contactar con el soporte de HardToCrack sin repetir los datos de tu servicio en cada consulta.">
+  <meta property="og:locale" content="es_ES">
+
+  <style>
+    :root{
+      --bg:#05080d;
+      --bg-soft:#09111a;
+      --surface:#0b1520;
+      --surface-2:#0e1b28;
+      --line:rgba(255,255,255,.09);
+      --line-strong:rgba(255,255,255,.16);
+      --text:#f3f7fa;
+      --muted:#a5b2bd;
+      --dim:#6f7f8d;
+      --cyan:#20bfff;
+      --green:#2ee68a;
+      --blue:#1378ff;
+      --danger:#ff7676;
+      --gradient:linear-gradient(120deg,var(--blue),var(--cyan) 47%,var(--green));
+      --shadow:0 30px 80px rgba(0,0,0,.34);
+      --radius:22px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at 12% 2%, rgba(19,120,255,.13), transparent 28rem),
+        radial-gradient(circle at 91% 18%, rgba(46,230,138,.10), transparent 30rem),
+        var(--bg);
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.65;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    button,input,textarea{font:inherit}
+    img{max-width:100%;display:block}
+
+    .skip-link{
+      position:fixed;left:16px;top:-100px;z-index:999;
+      padding:10px 14px;background:#fff;color:#000;border-radius:8px;
+    }
+    .skip-link:focus{top:16px}
+
+    .container{width:min(var(--max),calc(100% - 40px));margin-inline:auto}
+    .section{padding:108px 0;position:relative}
+    .section.compact{padding:78px 0}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;
+      margin-bottom:16px;color:var(--cyan);font-size:.77rem;
+      font-weight:750;letter-spacing:.16em;text-transform:uppercase;
+    }
+    .eyebrow::before{content:"";width:28px;height:1px;background:var(--gradient)}
+    h1,h2,h3{margin:0;line-height:1.08;letter-spacing:-.025em}
+    h1{font-size:clamp(2.6rem,6.2vw,5.8rem);max-width:840px}
+    h2{font-size:clamp(2rem,4vw,3.65rem)}
+    h3{font-size:1.12rem}
+    p{margin:0}
+    .lead{font-size:clamp(1.04rem,1.7vw,1.25rem);color:var(--muted);max-width:700px}
+    .gradient-text{
+      background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+
+    .nav-shell{
+      position:fixed;inset:0 0 auto;z-index:100;
+      background:rgba(5,8,13,.72);backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:28px;
+    }
+    .brand{display:flex;align-items:center;gap:13px;min-width:max-content}
+    .brand-logo{
+      width:38px;height:42px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(32,191,255,.22));
+    }
+    .brand-name{font-size:1.18rem;font-weight:800;letter-spacing:.04em}
+    .brand-name span{color:var(--green)}
+    .brand-sub{font-size:.62rem;color:var(--dim);letter-spacing:.19em;text-transform:uppercase}
+    .nav-links{display:flex;align-items:center;gap:28px;color:var(--muted);font-size:.88rem}
+    .nav-links a:hover,.nav-links a:focus-visible{color:#fff}
+    .nav-actions{display:flex;align-items:center;gap:12px}
+    .mobile-toggle{
+      display:none;border:1px solid var(--line-strong);background:transparent;color:#fff;
+      width:44px;height:44px;border-radius:12px;
+    }
+
+    .button{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      min-height:48px;padding:0 22px;border-radius:12px;border:1px solid transparent;
+      font-weight:750;transition:.2s ease;cursor:pointer;
+    }
+    .button.primary{background:var(--gradient);color:#03100b;box-shadow:0 12px 34px rgba(32,191,255,.16)}
+    .button.primary:hover{transform:translateY(-2px);box-shadow:0 18px 42px rgba(46,230,138,.22)}
+    .button.secondary{border-color:var(--line-strong);background:rgba(255,255,255,.02)}
+    .button.secondary:hover{border-color:var(--cyan);color:var(--cyan)}
+    .button:focus-visible,.mobile-toggle:focus-visible,.faq-button:focus-visible{
+      outline:3px solid rgba(32,191,255,.35);outline-offset:3px;
+    }
+
+    .hero{
+      min-height:100svh;padding:150px 0 88px;display:grid;align-items:center;position:relative;
+    }
+    .hero::before{
+      content:"";position:absolute;inset:0;pointer-events:none;opacity:.26;
+      background-image:
+        linear-gradient(rgba(32,191,255,.07) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(32,191,255,.07) 1px,transparent 1px);
+      background-size:56px 56px;
+      mask-image:linear-gradient(to bottom,black,transparent 80%);
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.02fr .98fr;gap:70px;align-items:center;position:relative;
+    }
+    .hero-copy .lead{margin-top:28px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+    .trust-row{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:52px;max-width:710px;
+    }
+    .trust-item{
+      border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:.88rem;
+    }
+    .trust-item strong{display:block;color:#fff;margin-bottom:4px;font-size:.94rem}
+
+    .route-card{
+      position:relative;border:1px solid var(--line-strong);border-radius:30px;
+      background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012));
+      box-shadow:var(--shadow);padding:32px;overflow:hidden;min-height:520px;
+    }
+    .route-card::after{
+      content:"";position:absolute;width:280px;height:280px;border-radius:50%;
+      right:-100px;bottom:-110px;background:rgba(46,230,138,.12);filter:blur(40px)
+    }
+    .route-head{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:28px}
+    .status{
+      display:inline-flex;align-items:center;gap:8px;font-size:.78rem;color:var(--green);
+      border:1px solid rgba(46,230,138,.3);padding:7px 11px;border-radius:999px;
+    }
+    .status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+    .route-flow{display:grid;gap:16px;position:relative;z-index:1}
+    .route-node{
+      border:1px solid var(--line);background:rgba(5,8,13,.78);border-radius:18px;padding:20px;
+      display:flex;align-items:center;gap:16px;
+    }
+    .route-icon,.icon-box{
+      width:52px;height:52px;border-radius:16px;display:grid;place-items:center;flex:0 0 auto;
+      background:linear-gradient(145deg,rgba(32,191,255,.16),rgba(46,230,138,.10));
+      border:1px solid rgba(32,191,255,.24);color:var(--cyan);
+    }
+    .route-node strong{display:block;margin-bottom:2px}
+    .route-node span{font-size:.88rem;color:var(--muted)}
+    .route-line{
+      height:35px;width:2px;background:var(--gradient);margin:-5px 0 -5px 25px;position:relative;
+    }
+    .route-line::after{
+      content:"";position:absolute;bottom:-1px;left:-4px;width:8px;height:8px;border-right:2px solid var(--green);border-bottom:2px solid var(--green);transform:rotate(45deg);
+    }
+    .address-card{
+      margin-top:22px;border:1px solid rgba(46,230,138,.3);background:rgba(46,230,138,.055);
+      border-radius:18px;padding:20px;position:relative;z-index:1;
+    }
+    .address-label{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em}
+    .address{
+      font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+      font-size:clamp(1rem,2vw,1.3rem);margin-top:7px;color:#fff;word-break:break-all;
+    }
+    .address-note{font-size:.84rem;color:var(--muted);margin-top:8px}
+
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:52px}
+    .section-head > div:first-child{max-width:760px}
+    .section-head .lead{max-width:540px}
+
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .step,.card{
+      position:relative;border:1px solid var(--line);border-radius:var(--radius);
+      background:linear-gradient(155deg,rgba(255,255,255,.038),rgba(255,255,255,.012));padding:30px;
+    }
+    .step-number{
+      font-family:"SFMono-Regular",Consolas,monospace;color:var(--green);font-size:.78rem;
+      letter-spacing:.1em;margin-bottom:20px;
+    }
+    .step h3,.card h3{margin-bottom:10px}
+    .step p,.card p{color:var(--muted);font-size:.94rem}
+
+    .feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .card{min-height:245px}
+    .card .icon-box{margin-bottom:24px}
+    .card:hover{border-color:rgba(32,191,255,.3);transform:translateY(-2px)}
+
+    .security-banner{
+      display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;
+      border:1px solid rgba(255,118,118,.32);background:rgba(255,118,118,.055);
+      border-radius:var(--radius);padding:30px;
+    }
+    .security-banner .icon-box{color:var(--danger);border-color:rgba(255,118,118,.3);background:rgba(255,118,118,.09)}
+    .security-banner h3{margin-bottom:10px}
+    .security-banner p{color:var(--muted)}
+    .security-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 24px;margin-top:18px;color:#dfe7ec;font-size:.91rem}
+    .security-list span::before{content:"×";color:var(--danger);font-weight:900;margin-right:9px}
+
+    .channel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .channel{
+      border:1px solid var(--line);border-radius:var(--radius);padding:26px;background:var(--surface);
+    }
+    .channel small{display:block;color:var(--green);margin-top:13px;font-size:.78rem}
+    .channel p{color:var(--muted);font-size:.9rem;margin-top:8px}
+
+    .support-levels{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+    }
+    .level{
+      border:1px solid var(--line);border-radius:var(--radius);padding:30px;background:var(--surface);
+    }
+    .level.featured{border-color:rgba(46,230,138,.35);background:linear-gradient(180deg,rgba(46,230,138,.06),var(--surface))}
+    .level-label{font-size:.76rem;color:var(--cyan);letter-spacing:.12em;text-transform:uppercase}
+    .level h3{font-size:1.45rem;margin:8px 0 14px}
+    .level ul{padding:0;margin:0;list-style:none;display:grid;gap:10px;color:var(--muted);font-size:.92rem}
+    .level li::before{content:"✓";color:var(--green);margin-right:9px;font-weight:800}
+    .level-note{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:.82rem;color:var(--dim)}
+
+    .faq{max-width:900px;margin:auto}
+    .faq-item{border-bottom:1px solid var(--line)}
+    .faq-button{
+      width:100%;border:0;background:transparent;color:#fff;padding:24px 0;
+      display:flex;justify-content:space-between;gap:20px;text-align:left;font-weight:750;font-size:1rem;cursor:pointer;
+    }
+    .faq-button span:last-child{color:var(--cyan);font-size:1.3rem;transition:.2s}
+    .faq-item.open .faq-button span:last-child{transform:rotate(45deg)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height .25s ease}
+    .faq-answer p{color:var(--muted);padding:0 0 24px;max-width:760px}
+
+    .contact-shell{
+      display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:start;
+      border:1px solid var(--line-strong);border-radius:30px;padding:44px;
+      background:linear-gradient(145deg,rgba(19,120,255,.07),rgba(46,230,138,.045));
+      box-shadow:var(--shadow);
+    }
+    .contact-copy h2{margin-bottom:18px}
+    .contact-copy .lead{font-size:1rem}
+    .contact-links{display:grid;gap:12px;margin-top:28px;color:var(--muted)}
+    .contact-links a:hover{color:var(--cyan)}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .field{display:grid;gap:7px}
+    .field.full{grid-column:1/-1}
+    label{font-size:.78rem;color:var(--muted);letter-spacing:.04em}
+    input,textarea{
+      width:100%;border:1px solid var(--line-strong);border-radius:12px;background:rgba(4,9,14,.72);
+      color:#fff;padding:13px 14px;outline:none;
+    }
+    input:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(32,191,255,.1)}
+    textarea{min-height:110px;resize:vertical}
+    .form-footer{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .form-note{font-size:.78rem;color:var(--dim);max-width:350px}
+    .form-status{grid-column:1/-1;display:none;padding:13px 15px;border-radius:11px;font-size:.88rem}
+    .form-status.success{display:block;border:1px solid rgba(46,230,138,.35);background:rgba(46,230,138,.07);color:var(--green)}
+    .form-status.error{display:block;border:1px solid rgba(255,118,118,.35);background:rgba(255,118,118,.07);color:var(--danger)}
+    .honeypot{position:absolute;left:-9999px;opacity:0;pointer-events:none}
+
+    footer{padding:54px 0 30px;border-top:1px solid var(--line);background:#04070b}
+    .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:38px}
+    .footer-brand p{color:var(--dim);max-width:390px;margin-top:14px;font-size:.88rem}
+    .footer-col h3{font-size:.82rem;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:13px}
+    .footer-col a{display:block;color:var(--muted);padding:5px 0;font-size:.9rem}
+    .footer-col a:hover{color:var(--cyan)}
+    .footer-bottom{
+      margin-top:38px;padding-top:22px;border-top:1px solid var(--line);
+      display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--dim);font-size:.78rem;
+    }
+
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    @media (max-width:980px){
+      .hero-grid,.contact-shell{grid-template-columns:1fr}
+      .route-card{max-width:680px}
+      .feature-grid,.channel-grid{grid-template-columns:repeat(2,1fr)}
+      .section-head{display:block}
+      .section-head .lead{margin-top:18px}
+    }
+    @media (max-width:760px){
+      .nav-links,.nav-actions .secondary{display:none}
+      .mobile-toggle{display:block}
+      .nav-links.open{
+        display:grid;position:absolute;left:20px;right:20px;top:84px;padding:18px;
+        border:1px solid var(--line-strong);border-radius:16px;background:#071019;box-shadow:var(--shadow);
+      }
+      .nav-actions{margin-left:auto}
+      .hero{padding-top:125px}
+      .trust-row,.steps,.support-levels,.security-list{grid-template-columns:1fr}
+      .feature-grid,.channel-grid{grid-template-columns:1fr}
+      .route-card{padding:22px;min-height:auto}
+      .section{padding:80px 0}
+      .contact-shell{padding:26px}
+      form{grid-template-columns:1fr}
+      .field.full,.form-footer,.form-status{grid-column:1}
+      .footer-grid{grid-template-columns:1fr}
+      .security-banner{grid-template-columns:1fr}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+      .reveal{opacity:1;transform:none}
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"contesta.la",
+    "description":"Canal privado de soporte utilizado por HardToCrack.",
+    "inLanguage":"es"
+  }
+  </script>
 </head>
 <body>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-    <div class="container">
-        <div class="vip-badge">VIP Access</div>
-        <h1>contesta.la</h1>
+<header class="nav-shell">
+  <div class="container nav">
+    <a class="brand" href="#inicio" aria-label="Contesta.la, inicio">
+      <img src="assets/ht-logo-transparent.png" alt="" class="brand-logo">
+      <div>
+        <div class="brand-name">contesta<span>.la</span></div>
+        <div class="brand-sub">Soporte privado · HardToCrack</div>
+      </div>
+    </a>
 
-        <!-- Español -->
-        <div class="message-block">
-            <span class="lang-label">Español</span>
-            <p>Servicio VIP clientes contesta.la, en el caso de desconexión, email de contacto en <a href="mailto:contestala@atomicmail.io">contestala@atomicmail.io</a></p>
-        </div>
+    <nav class="nav-links" id="navLinks" aria-label="Navegación principal">
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#ventajas">Ventajas</a>
+      <a href="#canales">Canales</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
 
-        <!-- English -->
-        <div class="message-block">
-            <span class="lang-label">English</span>
-            <p>contesta.la VIP client service, in case of disconnection, contact email at <a href="mailto:contestala@atomicmail.io">contestala@atomicmail.io</a></p>
-        </div>
-
-        <!-- Nederlands -->
-        <div class="message-block">
-            <span class="lang-label">Nederlands</span>
-            <p>VIP-klantenservice contesta.la, in geval van een verbroken verbinding, neem contact op via e-mail: <a href="mailto:contestala@atomicmail.io">contestala@atomicmail.io</a></p>
-        </div>
+    <div class="nav-actions">
+      <a class="button secondary" href="mailto:support@hardtocrack.com">Email de soporte</a>
+      <a class="button primary" href="#contacto">Necesito ayuda</a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
     </div>
+  </div>
+</header>
 
+<main id="contenido">
+  <section class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div class="hero-copy reveal">
+        <div class="eyebrow">Infraestructura privada de soporte</div>
+        <h1>Tu soporte.<br>Tu dirección.<br><span class="gradient-text">Tu historial.</span></h1>
+        <p class="lead">
+          Contesta.la asigna a cada cliente una dirección personalizada para contactar con HardToCrack,
+          identificar su servicio y mantener organizada toda la asistencia, sin tener que empezar de cero en cada consulta.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#como-funciona">Descubrir cómo funciona</a>
+          <a class="button secondary" href="#contacto">Recuperar mi dirección</a>
+        </div>
+        <div class="trust-row">
+          <div class="trust-item"><strong>Privacidad por diseño</strong>Tu nombre no tiene que formar parte de la dirección.</div>
+          <div class="trust-item"><strong>Atención contextual</strong>El soporte identifica el servicio vinculado.</div>
+          <div class="trust-item"><strong>Sin cuenta nueva</strong>Escribes desde tu correo habitual.</div>
+        </div>
+      </div>
+
+      <div class="route-card reveal" aria-label="Diagrama del funcionamiento de contesta.la">
+        <div class="route-head">
+          <div>
+            <div class="eyebrow" style="margin-bottom:5px">Ruta de asistencia</div>
+            <strong>Una consulta, correctamente identificada</strong>
+          </div>
+          <div class="status">Canal operativo</div>
+        </div>
+
+        <div class="route-flow">
+          <div class="route-node">
+            <div class="route-icon" aria-hidden="true">
+              <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.6-4.4 5-6 8-6s6.4 1.6 8 6"/></svg>
+            </div>
+            <div><strong>Cliente</strong><span>Escribe desde Proton, Gmail, Outlook o cualquier otro proveedor.</span></div>
+          </div>
+          <div class="route-line"></div>
+          <div class="route-node">
+            <div class="route-icon" aria-hidden="true">
+              <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg>
+            </div>
+            <div><strong>Dirección personalizada</strong><span>Relaciona la consulta con el dispositivo y el paquete contratado.</span></div>
+          </div>
+          <div class="route-line"></div>
+          <div class="route-node">
+            <div class="route-icon" aria-hidden="true">
+              <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3 19 6v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg>
+            </div>
+            <div><strong>Soporte HardToCrack</strong><span>Recibe el contexto necesario y continúa el historial de asistencia.</span></div>
+          </div>
+        </div>
+
+        <div class="address-card">
+          <div class="address-label">Ejemplo de dirección personal</div>
+          <div class="address">HTC-7K4P2@contesta.la</div>
+          <div class="address-note">El identificador es un ejemplo y no contiene datos personales visibles.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="como-funciona">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Cómo funciona</div>
+          <h2>Tres pasos. Ninguna cuenta adicional.</h2>
+        </div>
+        <p class="lead">Contesta.la actúa como dirección de entrada personalizada. No es un servicio público de correo ni una bandeja que el cliente tenga que gestionar.</p>
+      </div>
+
+      <div class="steps">
+        <article class="step reveal">
+          <div class="step-number">01 / ASIGNACIÓN</div>
+          <h3>Recibes una dirección privada</h3>
+          <p>HardToCrack te entrega una dirección individual relacionada con tu compra, garantía o servicio contratado.</p>
+        </article>
+        <article class="step reveal">
+          <div class="step-number">02 / CONTACTO</div>
+          <h3>Escribes desde tu correo habitual</h3>
+          <p>Utiliza el proveedor que prefieras. No necesitas crear una cuenta nueva ni memorizar otra contraseña.</p>
+        </article>
+        <article class="step reveal">
+          <div class="step-number">03 / CONTEXTO</div>
+          <h3>El soporte identifica tu servicio</h3>
+          <p>La consulta queda vinculada al historial correcto para ofrecer una respuesta más ordenada y contextual.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section compact" id="ventajas">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Ventajas</div>
+          <h2>Menos fricción. Más continuidad.</h2>
+        </div>
+        <p class="lead">Una estructura sencilla para que las consultas no dependan de recordar números de pedido, modelos o conversaciones anteriores.</p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="card reveal">
+          <div class="icon-box" aria-hidden="true">
+            <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.6-4.4 5-6 8-6s6.4 1.6 8 6"/></svg>
+          </div>
+          <h3>Atención personalizada</h3>
+          <p>El soporte puede reconocer el contexto de tu servicio sin pedirte los mismos datos en cada mensaje.</p>
+        </article>
+        <article class="card reveal">
+          <div class="icon-box" aria-hidden="true">
+            <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+          </div>
+          <h3>Historial organizado</h3>
+          <p>Las conversaciones relacionadas con una misma dirección se mantienen agrupadas y son más fáciles de seguir.</p>
+        </article>
+        <article class="card reveal">
+          <div class="icon-box" aria-hidden="true">
+            <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3 19 6v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3Z"/><path d="M9 12h6"/></svg>
+          </div>
+          <h3>Identificador discreto</h3>
+          <p>La dirección puede utilizar un código aleatorio en lugar de exponer tu nombre y apellidos.</p>
+        </article>
+        <article class="card reveal">
+          <div class="icon-box" aria-hidden="true">
+            <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12h4l2 6 4-12 2 6h6"/></svg>
+          </div>
+          <h3>Prioridad según servicio</h3>
+          <p>La atención puede adaptarse al alcance de Essential, Privacy o Elite conforme a las condiciones contratadas.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section compact">
+    <div class="container">
+      <div class="security-banner reveal">
+        <div class="icon-box" aria-hidden="true">
+          <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.6 2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.6a2 2 0 0 0-3.4 0Z"/></svg>
+        </div>
+        <div>
+          <h3>No envíes secretos por correo</h3>
+          <p>HardToCrack nunca necesita conocer tus credenciales privadas para ofrecer soporte. No compartas información que permita acceder a tus cuentas, fondos o dispositivos.</p>
+          <div class="security-list">
+            <span>Contraseñas</span>
+            <span>Frases semilla</span>
+            <span>Claves privadas</span>
+            <span>Códigos de recuperación</span>
+            <span>Códigos de autenticación</span>
+            <span>PIN completo del dispositivo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="canales">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Canales de atención</div>
+          <h2>El canal adecuado para cada incidencia.</h2>
+        </div>
+        <p class="lead">El correo personalizado es la vía principal. Cuando una consulta requiere más contexto, el soporte puede proponer otro canal.</p>
+      </div>
+
+      <div class="channel-grid">
+        <article class="channel reveal">
+          <div class="icon-box" aria-hidden="true">
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg>
+          </div>
+          <h3>Correo personalizado</h3>
+          <p>Canal principal, trazable y vinculado al historial de soporte.</p>
+          <small>Disponible para todos los paquetes</small>
+        </article>
+        <article class="channel reveal">
+          <div class="icon-box" aria-hidden="true">
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16v11H8l-4 4V5Z"/><path d="M8 9h8M8 12h5"/></svg>
+          </div>
+          <h3>SimpleX Chat</h3>
+          <p>Mensajería privada para casos en los que se acuerde continuar la asistencia por chat.</p>
+          <small>Según el servicio contratado</small>
+        </article>
+        <article class="channel reveal">
+          <div class="icon-box" aria-hidden="true">
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="13" height="14" rx="2"/><path d="m16 10 5-3v10l-5-3Z"/></svg>
+          </div>
+          <h3>Videollamada asistida</h3>
+          <p>Acompañamiento visual para configuraciones que no pueden resolverse únicamente por correo.</p>
+          <small>Mediante cita previa</small>
+        </article>
+        <article class="channel reveal">
+          <div class="icon-box" aria-hidden="true">
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3>Soporte remoto guiado</h3>
+          <p>El técnico guía los pasos o asiste sobre un ordenador autorizado; no instala acceso permanente al Pixel.</p>
+          <small>Solo cuando resulte necesario</small>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section compact">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Alcance orientativo</div>
+          <h2>Soporte adaptado al paquete.</h2>
+        </div>
+        <p class="lead">El alcance definitivo, los tiempos objetivo y las exclusiones se regulan en las condiciones del servicio contratado.</p>
+      </div>
+
+      <div class="support-levels">
+        <article class="level reveal">
+          <div class="level-label">Nivel 01</div>
+          <h3>Essential</h3>
+          <ul>
+            <li>Soporte por correo</li>
+            <li>Consultas sobre GrapheneOS instalado</li>
+            <li>Actualizaciones e incidencias básicas</li>
+          </ul>
+          <div class="level-note">Para el funcionamiento esencial del dispositivo preparado por HardToCrack.</div>
+        </article>
+        <article class="level featured reveal">
+          <div class="level-label">Nivel 02</div>
+          <h3>Privacy</h3>
+          <ul>
+            <li>Todo lo incluido en Essential</li>
+            <li>Atención prioritaria por correo</li>
+            <li>Ayuda con VPN, eSIM y configuración avanzada</li>
+          </ul>
+          <div class="level-note">Pensado para el ecosistema de privacidad configurado con el dispositivo.</div>
+        </article>
+        <article class="level reveal">
+          <div class="level-label">Nivel 03</div>
+          <h3>Elite</h3>
+          <ul>
+            <li>Todo lo incluido en Privacy</li>
+            <li>Soporte sobre Proton, SimpleLogin y dominio</li>
+            <li>Sesión asistida cuando el caso lo requiera</li>
+          </ul>
+          <div class="level-note">La cobertura está sujeta al uso razonable y a los servicios expresamente contratados.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Preguntas frecuentes</div>
+          <h2>Lo esencial, explicado con claridad.</h2>
+        </div>
+      </div>
+
+      <div class="faq">
+        <div class="faq-item reveal">
+          <button class="faq-button" aria-expanded="false"><span>¿La dirección @contesta.la es una cuenta de correo?</span><span>+</span></button>
+          <div class="faq-answer"><p>No. Es una dirección personalizada que recibe tu mensaje y lo dirige al sistema de soporte de HardToCrack. No necesitas iniciar sesión en contesta.la.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-button" aria-expanded="false"><span>¿Puedo escribir desde cualquier proveedor?</span><span>+</span></button>
+          <div class="faq-answer"><p>Sí. Puedes escribir desde Proton Mail, Gmail, Outlook u otro proveedor. La dirección personalizada funciona como destino de tu consulta.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-button" aria-expanded="false"><span>¿Puedo compartir mi dirección con otra persona?</span><span>+</span></button>
+          <div class="faq-answer"><p>No es recomendable. La dirección está asociada a un servicio concreto y compartirla puede dificultar la identificación y el seguimiento de las consultas.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-button" aria-expanded="false"><span>¿Qué ocurre si pierdo mi dirección?</span><span>+</span></button>
+          <div class="faq-answer"><p>Solicita su recuperación mediante el formulario inferior. HardToCrack podrá pedir datos suficientes para verificar la compra sin solicitar contraseñas ni secretos.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-button" aria-expanded="false"><span>¿La dirección tiene fecha de caducidad?</span><span>+</span></button>
+          <div class="faq-answer"><p>Puede depender de la garantía, la vigencia del paquete o las condiciones de soporte contratadas. HardToCrack comunicará cualquier cambio aplicable.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <button class="faq-button" aria-expanded="false"><span>¿HardToCrack puede controlar mi teléfono de forma remota?</span><span>+</span></button>
+          <div class="faq-answer"><p>No se instala acceso remoto permanente. Cuando resulte necesario, el soporte guía al cliente o utiliza una sesión puntual y autorizada sobre un ordenador compatible.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contacto">
+    <div class="container">
+      <div class="contact-shell reveal">
+        <div class="contact-copy">
+          <div class="eyebrow">Recuperación y asistencia</div>
+          <h2>¿Necesitas ayuda y no encuentras tu dirección?</h2>
+          <p class="lead">Envíanos los datos mínimos necesarios para localizar tu servicio. No incluyas contraseñas, claves privadas ni información de acceso.</p>
+          <div class="contact-links">
+            <a href="mailto:support@hardtocrack.com">support@hardtocrack.com</a>
+            <a href="mailto:contact@hardtocrack.com">contact@hardtocrack.com</a>
+            <span>Servicio operado por HardToCrack</span>
+          </div>
+        </div>
+
+        <form id="supportForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+          <div class="field">
+            <label for="name">Nombre o iniciales *</label>
+            <input id="name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email de contacto *</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="order">Pedido o referencia</label>
+            <input id="order" name="order_reference" autocomplete="off" placeholder="Opcional">
+          </div>
+          <div class="field">
+            <label for="device">Modelo del dispositivo</label>
+            <input id="device" name="device_model" autocomplete="off" placeholder="Ej. Google Pixel 8a">
+          </div>
+          <div class="field full">
+            <label for="message">Describe tu solicitud *</label>
+            <textarea id="message" name="message" required placeholder="Ej. He perdido mi dirección personalizada y necesito recuperarla."></textarea>
+          </div>
+          <input type="hidden" name="source" value="contesta.la">
+          <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="form-footer">
+            <span class="form-note">Al enviar aceptas que HardToCrack utilice estos datos únicamente para gestionar tu solicitud de soporte.</span>
+            <button class="button primary" type="submit" id="submitButton">Enviar solicitud</button>
+          </div>
+          <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#inicio">
+          <img src="assets/ht-logo-transparent.png" alt="" class="brand-logo">
+          <div>
+            <div class="brand-name">contesta<span>.la</span></div>
+            <div class="brand-sub">Soporte privado · HardToCrack</div>
+          </div>
+        </a>
+        <p>Contesta.la es una infraestructura de atención utilizada por HardToCrack. No ofrece cuentas de correo al público ni sustituye las condiciones del servicio contratado.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Soporte</h3>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#canales">Canales disponibles</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="#contacto">Recuperar dirección</a>
+      </div>
+      <div class="footer-col">
+        <h3>Seguridad</h3>
+        <a href="#ventajas">Privacidad por diseño</a>
+        <a href="#contacto">Aviso sobre datos sensibles</a>
+        <a href="mailto:security@hardtocrack.com">Reportar un problema</a>
+        <a href="https://hardtocrack.com">HardToCrack.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 HardToCrack. Todos los derechos reservados.</span>
+      <span>Sin cookies publicitarias · Sin trackers de terceros</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('mobileToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  toggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? '×' : '☰';
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = '☰';
+    });
+  });
+
+  document.querySelectorAll('.faq-button').forEach(button => {
+    button.addEventListener('click', () => {
+      const item = button.closest('.faq-item');
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = item.classList.toggle('open');
+      button.setAttribute('aria-expanded', String(isOpen));
+      answer.style.maxHeight = isOpen ? answer.scrollHeight + 'px' : '0';
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const form = document.getElementById('supportForm');
+  const statusBox = document.getElementById('formStatus');
+  const submitButton = document.getElementById('submitButton');
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    statusBox.className = 'form-status';
+    statusBox.textContent = '';
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    if (form.action.includes('YOUR_FORM_ID')) {
+      statusBox.className = 'form-status error';
+      statusBox.textContent = 'Configura el identificador de Formspree antes de publicar el formulario.';
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'Enviando…';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (!response.ok) throw new Error('Form submission failed');
+
+      form.reset();
+      statusBox.className = 'form-status success';
+      statusBox.textContent = 'Solicitud enviada correctamente. El equipo de soporte la revisará.';
+    } catch (error) {
+      statusBox.className = 'form-status error';
+      statusBox.textContent = 'No se ha podido enviar la solicitud. Escríbenos a support@hardtocrack.com.';
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = 'Enviar solicitud';
+    }
+  });
+</script>
 </body>
 </html>
