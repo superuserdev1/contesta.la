@@ -88,7 +88,12 @@
     }
     .brand{display:flex;align-items:center;gap:13px;min-width:max-content}
     .brand-logo{
-      width:38px;height:42px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(32,191,255,.22));
+      width:44px;height:52px;position:relative;overflow:hidden;flex:0 0 auto;
+      filter:drop-shadow(0 0 18px rgba(32,191,255,.22));
+    }
+    .brand-logo img{
+      position:absolute;width:116.4px;height:116.4px;max-width:none;
+      left:-36.2px;top:-20.9px;
     }
     .brand-name{font-size:1.18rem;font-weight:800;letter-spacing:.04em}
     .brand-name span{color:var(--green)}
@@ -335,7 +340,7 @@
 <header class="nav-shell">
   <div class="container nav">
     <a class="brand" href="#inicio" aria-label="Contesta.la, inicio">
-      <img src="assets/contestala-logo.png" alt="Logo de Contesta.la" class="brand-logo">
+      <span class="brand-logo"><img src="assets/contestala-logo.png" alt="Logo de Contesta.la" width="1254" height="1254"></span>
       <div>
         <div class="brand-name">contesta<span>.la</span></div>
         <div class="brand-sub">Soporte privado · HardToCrack</div>
@@ -698,7 +703,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="brand" href="#inicio">
-          <img src="assets/contestala-logo.png" alt="Logo de Contesta.la" class="brand-logo">
+          <span class="brand-logo"><img src="assets/contestala-logo.png" alt="Logo de Contesta.la" width="1254" height="1254"></span>
           <div>
             <div class="brand-name">contesta<span>.la</span></div>
             <div class="brand-sub">Soporte privado · HardToCrack</div>
