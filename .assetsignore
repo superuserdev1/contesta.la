@@ -1,0 +1,10 @@
+.git/
+**/.git/
+.github/
+.wrangler/
+.vercel/
+node_modules/
+README.md
+CNAME
+wrangler.jsonc
+.assetsignore
